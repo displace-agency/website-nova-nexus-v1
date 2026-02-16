@@ -531,7 +531,6 @@ a { text-decoration: none; color: inherit; }
   justify-content: center;
   align-items: center;
   gap: 56px;
-  overflow: hidden;
 }
 .services__bento {
   display: flex;
@@ -661,8 +660,9 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
 }
 .approach__card-logo img {
-  width: 110px;
   height: 27px;
+  width: auto;
+  filter: invert(1) brightness(2);
 }
 .approach__card-year {
   font-size: 14px;
@@ -762,6 +762,9 @@ a { text-decoration: none; color: inherit; }
   color: var(--lavender);
   font-style: italic;
 }
+.approach__cta {
+  margin-top: 24px;
+}
 .approach__card-right {
   flex: 1 1 0;
   min-width: 0;
@@ -823,7 +826,7 @@ a { text-decoration: none; color: inherit; }
   -ms-overflow-style: none;
 }
 .process__cards::-webkit-scrollbar { display: none; }
-.process__cards:active { cursor: grabbing; }
+.process__cards.is-dragging { cursor: grabbing; }
 .process__card {
   width: 280px;
   min-width: 280px;
@@ -922,6 +925,7 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: 32px;
 }
 .comparison__card--highlight {
   background: linear-gradient(142.7deg, #0F112A 43.45%, #2B40F5 72.68%, #2B40F5 104.71%);
@@ -1369,12 +1373,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ── GSAP animation helpers ── */
-.word-wrap {
-  display: inline-block;
-  overflow: hidden;
-  vertical-align: bottom;
-  padding-bottom: 6px;
-}
 .hero-word {
   display: inline-block;
 }
@@ -1803,7 +1801,7 @@ a { text-decoration: none; color: inherit; }
   .hero__heading { font-size: 48px; line-height: 1.05; }
   .hero__bottom { flex-direction: column; align-items: flex-start; gap: 40px; }
   .hero__content { max-width: 100%; }
-  .hero__visual { max-width: 100%; flex-basis: auto; height: 320px; aspect-ratio: auto; }
+  .hero__visual { max-width: 75%; flex-basis: auto; height: 240px; aspect-ratio: auto; align-self: flex-end; }
 
   /* Pain Point */
   .pain-point__content { flex-direction: column; }
@@ -1811,24 +1809,53 @@ a { text-decoration: none; color: inherit; }
   .pain-point__cards { flex-wrap: wrap; }
   .pain-point__card { flex: 1 1 calc(50% - 7px); min-height: 260px; }
 
-  /* Services */
+  /* Services — horizontal slider */
+  .services { padding-left: 0; padding-right: 0; overflow: hidden; }
+  .services__inner { max-width: 100%; padding: 0; overflow: visible; }
+  .services__inner > div:first-child { padding: 0 20px; width: 100%; }
+  .services__bento {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    gap: 12px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 20px;
+    width: 100%;
+    cursor: grab;
+  }
+  .services__bento.is-dragging { cursor: grabbing; }
+  .services__bento::-webkit-scrollbar { display: none; }
+  .services__bento-top,
+  .services__bento-bottom { display: contents; }
+  .bento-card-2col,
+  .bento-card-3col {
+    flex: 0 0 300px;
+  }
   .bento-card-2col__title,
   .bento-card-3col__title { font-size: 28px; }
+  .bento-card-3col__image { align-self: flex-end; }
 
   /* Approach */
   .approach__card { flex-direction: column; }
-  .approach__card-left { flex-basis: auto; min-height: auto; padding: 24px; }
+  .approach__card-left { flex-basis: auto; min-height: auto; padding: 24px; justify-content: flex-start; gap: 24px; }
+  .approach__card-left .approach__stats,
+  .approach__card-left .approach__benefits,
+  .approach__card-left .approach__impact,
+  .approach__card-left .approach__cta { margin-top: 0; }
   .approach__card-right { flex: none; height: 350px; }
   .approach__stat-value { font-size: 40px; }
   .approach__card-heading { font-size: 28px; }
+  .approach__stats { gap: 16px; }
 
   /* Process */
   .process__content { flex-direction: column; }
   .process__heading { max-width: 100%; font-size: 40px; line-height: 40px; }
 
   /* Comparison */
-  .comparison__cards { flex-wrap: wrap; }
-  .comparison__card { flex: 1 1 calc(50% - 12px); }
+  .comparison__cards { flex-wrap: wrap; gap: 16px; }
+  .comparison__card { flex: 1 1 calc(50% - 8px); gap: 24px; }
 
   /* Community */
   .community__row { flex-wrap: wrap; justify-content: center; gap: 16px; }
@@ -1844,7 +1871,6 @@ a { text-decoration: none; color: inherit; }
   .hero__buttons { flex-direction: column; align-items: center; }
 
   /* Footer */
-  .footer { min-height: 75vh; }
   .footer__nav { flex-wrap: wrap; gap: 32px; }
   .footer__nav-col { flex: 1 1 200px; }
   .footer__logo-decoration { right: 20px; height: 40vh; }
@@ -1883,7 +1909,7 @@ a { text-decoration: none; color: inherit; }
   .hero { padding-top: 80px; min-height: auto; }
   .hero__heading { font-size: 36px; line-height: 1.05; }
   .hero__subtitle { font-size: 16px; line-height: 22px; }
-  .hero__visual { height: 260px; }
+  .hero__visual { height: 200px; max-width: 70%; }
   .hero__buttons { flex-direction: column; align-items: flex-start; gap: 12px; }
 
   /* Tech Stack */
@@ -1899,9 +1925,11 @@ a { text-decoration: none; color: inherit; }
   .pain-point__cards { flex-direction: column; }
   .pain-point__card { flex-basis: auto; min-height: 220px; }
 
-  /* Services */
-  .services__bento-top,
-  .services__bento-bottom { flex-direction: column; }
+  /* Services — slider refinements */
+  .services__inner > div:first-child { padding: 0 16px; }
+  .services__bento { padding: 0 16px; gap: 10px; }
+  .bento-card-2col,
+  .bento-card-3col { flex: 0 0 260px; }
   .bento-card-2col { min-height: 280px; padding: 140px 20px 20px; }
   .bento-card-2col__title,
   .bento-card-3col__title { font-size: 24px; }
@@ -1913,9 +1941,10 @@ a { text-decoration: none; color: inherit; }
   .approach__card-right { flex: none; height: 280px; }
   .approach__card-heading { font-size: 24px; }
   .approach__stat-value { font-size: 32px; }
-  .approach__stat { max-width: none; min-width: 120px; }
+  .approach__stat { flex: 1 1 calc(50% - 8px); max-width: none; min-width: 0; }
   .approach__stats { gap: 16px; }
   .approach__benefit-text { font-size: 14px; }
+  .approach__impact-text { font-size: 14px; }
 
   /* Process */
   .process__heading { font-size: 32px; line-height: 32px; }
@@ -1923,8 +1952,8 @@ a { text-decoration: none; color: inherit; }
   .process__card-title { font-size: 24px; line-height: 28px; }
 
   /* Comparison */
-  .comparison__cards { flex-direction: column; }
-  .comparison__card { flex-basis: auto; min-height: 200px; }
+  .comparison__cards { flex-direction: column; gap: 16px; }
+  .comparison__card { flex-basis: auto; min-height: auto; gap: 20px; }
 
   /* Community */
   .community__row { flex-direction: column; align-items: center; }
@@ -1950,7 +1979,7 @@ a { text-decoration: none; color: inherit; }
   .hero__heading { text-align: left; }
 
   /* Footer — compact */
-  .footer { padding: 48px 16px 16px; min-height: 75vh; }
+  .footer { padding: 48px 16px 16px; }
   .footer__brand-name { font-size: 28px; }
   .footer__brand-desc { font-size: 16px; }
   .footer__nav { flex-direction: column; gap: 32px; }
@@ -1997,15 +2026,15 @@ a { text-decoration: none; color: inherit; }
 
   /* Hero */
   .hero__heading { font-size: 28px; line-height: 1.05; }
-  .hero__visual { height: 200px; }
+  .hero__visual { height: 160px; max-width: 65%; }
   .hero__subtitle { font-size: 14px; line-height: 20px; }
 
   /* Tech Stack */
   .tech-stack__item { flex: 0 0 160px; height: 100px; }
 
   /* Approach */
-  .approach__stats { flex-direction: column; }
-  .approach__stat { max-width: 100%; }
+  .approach__stat { flex: 1 1 calc(50% - 8px); max-width: none; min-width: 0; }
+  .approach__stat-value { font-size: 28px; }
 
   /* FAQ */
   .faq__plus { width: 28px; height: 28px; }

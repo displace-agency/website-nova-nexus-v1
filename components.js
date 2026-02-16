@@ -101,11 +101,11 @@ class NovaNavbar extends HTMLElement {
     nav.className = 'navbar';
     nav.innerHTML = `
       <div class="navbar__inner">
-        <a href="index.html" class="navbar__logo">
+        <a href="./" class="navbar__logo">
           <img src="images/logo.svg" alt="Nova Nexus Capital" width="146" height="32">
         </a>
         <div class="navbar__links">
-          <a href="index.html" class="navbar__link">Home</a>
+          <a href="./" class="navbar__link">Home</a>
           <a href="contact.html" class="navbar__link">Contact</a>
         </div>
       </div>
@@ -138,7 +138,7 @@ class NovaFooter extends HTMLElement {
           <div class="footer__nav-col">
             <span class="footer__nav-label">/NAVIGATION</span>
             <div class="footer__nav-links">
-              <a href="index.html">Home</a>
+              <a href="./">Home</a>
               <a href="contact.html">Contact</a>
             </div>
           </div>

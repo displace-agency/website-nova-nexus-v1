@@ -19,8 +19,10 @@ if (pageOverlay) {
     if (!link) return;
     const href = link.getAttribute('href');
     if (!href || href === '#' || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) return;
-    const current = location.pathname.split('/').pop() || 'index.html';
-    if (href === current) return;
+    const current = location.pathname.split('/').pop() || '';
+    const isHome = !current || current === 'index.html';
+    const hrefIsHome = href === './' || href === '/' || href === 'index.html';
+    if ((isHome && hrefIsHome) || href === current) return;
     e.preventDefault();
     pageOverlay.style.visibility = 'visible';
     pageOverlay.style.pointerEvents = 'all';
@@ -41,17 +43,17 @@ if (pageOverlay) {
 const heroHeading = document.querySelector('.hero__heading');
 if (heroHeading) {
   heroHeading.innerHTML = heroHeading.textContent.trim().split(/\s+/)
-    .map(w => `<span class="word-wrap"><span class="hero-word">${w}</span></span>`)
+    .map(w => `<span class="hero-word">${w}</span>`)
     .join(' ');
 
   const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
   heroTl
     .from('.hero-word', {
-      yPercent: 100,
+      y: 30,
       opacity: 0,
-      duration: 0.9,
-      stagger: 0.08,
+      duration: 0.7,
+      stagger: 0.06,
     })
     .from('.hero__subtitle', {
       opacity: 0,
@@ -112,8 +114,7 @@ if (marqueeRow) {
 
 const revealSets = [
   { selector: '.pain-point__card',  trigger: '.pain-point__cards' },
-  { selector: '.bento-card-2col',   trigger: '.services__bento-top' },
-  { selector: '.bento-card-3col',   trigger: '.services__bento-bottom' },
+  { selector: '.bento-card-2col, .bento-card-3col', trigger: '.services__bento' },
   { selector: '.comparison__card',  trigger: '.comparison__cards' },
   { selector: '.community__card',   trigger: '.community__row' },
 ];
@@ -161,31 +162,39 @@ document.querySelectorAll('.approach__stat-value').forEach(el => {
 
 
 /* ═══════════════════════════════════════
-   PROCESS — Drag-to-scroll carousel (homepage only)
+   DRAG-TO-SCROLL — Shared carousel utility
    ═══════════════════════════════════════ */
 
-const processCardsContainer = document.querySelector('.process__cards');
-
-if (processCardsContainer) {
+function initDragScroll(container) {
+  if (!container) return;
   let isDown = false;
   let startX;
   let scrollLeft;
 
-  processCardsContainer.addEventListener('mousedown', (e) => {
+  container.addEventListener('mousedown', (e) => {
     isDown = true;
-    startX = e.pageX - processCardsContainer.offsetLeft;
-    scrollLeft = processCardsContainer.scrollLeft;
+    container.classList.add('is-dragging');
+    startX = e.pageX - container.offsetLeft;
+    scrollLeft = container.scrollLeft;
   });
-  processCardsContainer.addEventListener('mouseleave', () => { isDown = false; });
-  processCardsContainer.addEventListener('mouseup', () => { isDown = false; });
-  processCardsContainer.addEventListener('mousemove', (e) => {
+
+  const stop = () => {
+    isDown = false;
+    container.classList.remove('is-dragging');
+  };
+
+  container.addEventListener('mouseleave', stop);
+  container.addEventListener('mouseup', stop);
+  container.addEventListener('mousemove', (e) => {
     if (!isDown) return;
     e.preventDefault();
-    const x = e.pageX - processCardsContainer.offsetLeft;
-    const walk = (x - startX) * 2;
-    processCardsContainer.scrollLeft = scrollLeft - walk;
+    const x = e.pageX - container.offsetLeft;
+    container.scrollLeft = scrollLeft - (x - startX) * 2;
   });
 }
+
+initDragScroll(document.querySelector('.process__cards'));
+initDragScroll(document.querySelector('.services__bento'));
 
 // Recalculate marquees on resize (debounced)
 window.addEventListener('resize', () => {
