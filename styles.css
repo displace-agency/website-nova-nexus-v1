@@ -18,7 +18,7 @@ html { scroll-behavior: smooth; }
 body {
   font-family: var(--font-primary);
   color: var(--navy);
-  background: linear-gradient(180deg, var(--blue) 0%, var(--lavender) 100%);
+  background: linear-gradient(180deg, #2B40F5 0%, #E4E6F3 70.63%, #FFFFFF 97.88%), #FFFFFF;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -1517,7 +1517,7 @@ a { text-decoration: none; color: inherit; }
    GRADIENT FLOW — Operate + Community shared bg
    ============================================ */
 .gradient-flow {
-  background: linear-gradient(180deg, var(--white) 0%, var(--lavender) 35%, var(--blue) 75%);
+  /* Body gradient flows through — no local background */
 }
 
 /* ============================================

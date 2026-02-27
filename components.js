@@ -164,7 +164,7 @@ class NovaFooter extends HTMLElement {
             <div class="footer__nav-links">
               <a href="terms.html">Términos de Servicio</a>
               <a href="privacy.html">Política de Privacidad</a>
-              <a href="archive.html">Archive</a>
+              <!-- <a href="archive.html">Archive</a> -->
             </div>
           </div>
           <div class="footer__nav-col">
