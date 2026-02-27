@@ -19,10 +19,11 @@ if (pageOverlay) {
     if (!link) return;
     const href = link.getAttribute('href');
     if (!href || href === '#' || href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('http')) return;
-    const current = location.pathname.split('/').pop() || '';
-    const isHome = !current || current === 'index.html';
-    const hrefIsHome = href === './' || href === '/' || href === 'index.html';
-    if ((isHome && hrefIsHome) || href === current) return;
+    const current = location.pathname.split('/').pop().replace('.html', '') || '';
+    const isHome = !current || current === 'index';
+    const hrefClean = href.replace('.html', '');
+    const hrefIsHome = hrefClean === './' || hrefClean === '/' || hrefClean === 'index';
+    if ((isHome && hrefIsHome) || hrefClean === current) return;
     e.preventDefault();
     pageOverlay.style.visibility = 'visible';
     pageOverlay.style.pointerEvents = 'all';
@@ -114,9 +115,15 @@ if (marqueeRow) {
 
 const revealSets = [
   { selector: '.pain-point__card',  trigger: '.pain-point__cards' },
+  { selector: '.operate__item',    trigger: '.operate__accordion' },
   { selector: '.bento-card-2col, .bento-card-3col', trigger: '.services__bento' },
   { selector: '.comparison__card',  trigger: '.comparison__cards' },
   { selector: '.community__card',   trigger: '.community__row' },
+  { selector: '.capacidades__card', trigger: '.capacidades__grid' },
+  { selector: '.casos__card',       trigger: '.casos__cards' },
+  { selector: '.valores__card',    trigger: '.valores__cards' },
+  { selector: '.metodo__step',     trigger: '.metodo__steps' },
+  { selector: '.logros__card',     trigger: '.logros__grid' },
 ];
 
 revealSets.forEach(({ selector, trigger }) => {
@@ -195,6 +202,9 @@ function initDragScroll(container) {
 
 initDragScroll(document.querySelector('.process__cards'));
 initDragScroll(document.querySelector('.services__bento'));
+initDragScroll(document.querySelector('.capacidades__grid'));
+initDragScroll(document.querySelector('.valores__cards'));
+initDragScroll(document.querySelector('.metodo__steps'));
 
 // Recalculate marquees on resize (debounced)
 window.addEventListener('resize', () => {
@@ -242,6 +252,60 @@ document.querySelectorAll('.faq__item').forEach(item => {
     }
   });
 });
+
+
+/* ═══════════════════════════════════════
+   OPERATE — Accordion (homepage)
+   ═══════════════════════════════════════ */
+
+(function() {
+  const items = document.querySelectorAll('.operate__item');
+  if (!items.length) return;
+
+  // Set initial open state for first item
+  const firstOpen = document.querySelector('.operate__item--open');
+  if (firstOpen) {
+    const answer = firstOpen.querySelector('.operate__answer');
+    if (answer) {
+      gsap.set(answer, { height: 'auto', opacity: 1, paddingTop: 12, paddingBottom: 24 });
+    }
+  }
+
+  // Click handlers
+  items.forEach(item => {
+    item.querySelector('.operate__question').addEventListener('click', () => {
+      const isOpen = item.classList.contains('operate__item--open');
+      const tl = gsap.timeline();
+
+      // Close all others first (at time 0)
+      items.forEach(other => {
+        if (other === item && !isOpen) return;
+        const a = other.querySelector('.operate__answer');
+        if (!a || !other.classList.contains('operate__item--open')) return;
+        a.style.overflow = 'hidden';
+        tl.to(a, {
+          height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0,
+          duration: 0.25, ease: 'power2.in',
+          onComplete() { other.classList.remove('operate__item--open'); a.style.overflow = ''; }
+        }, 0);
+      });
+
+      // Open clicked item (overlapping at 0.1s so it feels like one motion)
+      if (!isOpen) {
+        const answer = item.querySelector('.operate__answer');
+        if (answer) {
+          item.classList.add('operate__item--open');
+          answer.style.overflow = 'hidden';
+          tl.to(answer, {
+            height: 'auto', opacity: 1, paddingTop: 12, paddingBottom: 24,
+            duration: 0.4, ease: 'power3.out',
+            onComplete() { answer.style.overflow = ''; }
+          }, 0.1);
+        }
+      }
+    });
+  });
+})();
 
 
 /* ═══════════════════════════════════════
@@ -424,3 +488,210 @@ if (footer) {
     });
   }
 }
+
+
+/* ═══════════════════════════════════════
+   SOLUTIONS HERO — Staggered reveal
+   ═══════════════════════════════════════ */
+
+const solHero = document.querySelector('.sol-hero');
+if (solHero) {
+  const solTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  solTl
+    .from('.sol-hero__heading', {
+      y: 40,
+      opacity: 0,
+      duration: 0.9,
+    })
+    .from('.sol-hero__subtitle', {
+      y: 20,
+      opacity: 0,
+      duration: 0.7,
+    }, '-=0.4')
+    .from('.sol-hero__buttons .btn', {
+      y: 20,
+      opacity: 0,
+      duration: 0.5,
+    }, '-=0.3')
+    .from('.sol-hero__visual', {
+      scale: 0.9,
+      opacity: 0,
+      filter: 'blur(8px)',
+      duration: 1.2,
+      ease: 'power2.out',
+    }, 0.3);
+}
+
+
+/* ═══════════════════════════════════════
+   PANELES — Scroll-triggered reveal
+   ═══════════════════════════════════════ */
+
+const panelesSection = document.querySelector('.paneles');
+if (panelesSection) {
+  gsap.from('.paneles__tab', {
+    scrollTrigger: { trigger: '.paneles__tabs', start: 'top 85%' },
+    y: 20,
+    opacity: 0,
+    duration: 0.5,
+    stagger: 0.08,
+    ease: 'power2.out',
+  });
+
+  gsap.from('.paneles__card', {
+    scrollTrigger: { trigger: '.paneles__card', start: 'top 85%' },
+    y: 40,
+    opacity: 0,
+    duration: 0.8,
+    ease: 'power2.out',
+  });
+}
+
+
+/* ═══════════════════════════════════════
+   RECURSOS — Scroll-triggered reveal
+   ═══════════════════════════════════════ */
+
+const recursosSection = document.querySelector('.recursos');
+if (recursosSection) {
+  gsap.from('.recursos__link', {
+    scrollTrigger: { trigger: '.recursos__grid', start: 'top 85%' },
+    y: 20,
+    opacity: 0,
+    duration: 0.4,
+    stagger: 0.06,
+    ease: 'power2.out',
+  });
+}
+
+
+/* ═══════════════════════════════════════
+   ABOUT HERO — Staggered reveal
+   ═══════════════════════════════════════ */
+
+const aboutHero = document.querySelector('.about-hero');
+if (aboutHero) {
+  const aboutTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+  aboutTl
+    .from('.about-hero__heading', {
+      y: 40,
+      opacity: 0,
+      duration: 0.9,
+    })
+    .from('.about-hero__subtitle', {
+      y: 20,
+      opacity: 0,
+      duration: 0.7,
+    }, '-=0.4')
+    .from('.about-hero__card', {
+      y: 30,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.15,
+    }, '-=0.3')
+    .from('.about-hero__visual', {
+      scale: 0.9,
+      opacity: 0,
+      filter: 'blur(8px)',
+      duration: 1.2,
+      ease: 'power2.out',
+    }, 0.3);
+}
+
+
+/* ═══════════════════════════════════════
+   PROPOSITO — Scroll-triggered reveal
+   ═══════════════════════════════════════ */
+
+const propositoSection = document.querySelector('.proposito');
+if (propositoSection) {
+  gsap.from('.proposito__box', {
+    scrollTrigger: { trigger: '.proposito__boxes', start: 'top 85%' },
+    y: 40,
+    opacity: 0,
+    duration: 0.7,
+    stagger: 0.15,
+    ease: 'power2.out',
+  });
+}
+
+
+/* ═══════════════════════════════════════
+   MOBILE MENU — Hamburger + overlay
+   ═══════════════════════════════════════ */
+
+(function () {
+  const burger = document.querySelector('.navbar__burger');
+  const overlay = document.querySelector('.navbar__overlay');
+  if (!burger || !overlay) return;
+
+  const overlayLinks = overlay.querySelectorAll('.navbar__overlay-link');
+  let isOpen = false;
+  let tl = null;
+
+  // Mark current page link
+  const currentPage = location.pathname.split('/').pop().replace('.html', '') || 'index';
+  overlayLinks.forEach(link => {
+    const href = link.getAttribute('href').replace('.html', '');
+    const isHome = (href === './' || href === '/' || href === 'index');
+    const isCurrent = isHome
+      ? (!currentPage || currentPage === 'index')
+      : href === currentPage;
+    if (isCurrent) link.classList.add('is-current');
+  });
+
+  function openMenu() {
+    isOpen = true;
+    burger.classList.add('is-active');
+    burger.setAttribute('aria-expanded', 'true');
+    overlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+
+    if (tl) tl.kill();
+    tl = gsap.timeline();
+    tl.set(overlay, { visibility: 'visible' })
+      .to(overlay, { opacity: 1, duration: 0.3, ease: 'power2.out' })
+      .fromTo(overlayLinks,
+        { y: 30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.4, stagger: 0.12, ease: 'power3.out' },
+        '-=0.1'
+      );
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    burger.classList.remove('is-active');
+    burger.setAttribute('aria-expanded', 'false');
+    overlay.setAttribute('aria-hidden', 'true');
+
+    if (tl) tl.kill();
+    tl = gsap.timeline();
+    tl.to(overlayLinks, {
+      y: -20, opacity: 0, duration: 0.25, stagger: 0.08, ease: 'power2.in',
+    })
+    .to(overlay, { opacity: 0, duration: 0.25, ease: 'power2.in' })
+    .set(overlay, { visibility: 'hidden' })
+    .call(() => { document.body.style.overflow = ''; });
+  }
+
+  burger.addEventListener('click', () => {
+    isOpen ? closeMenu() : openMenu();
+  });
+
+  // Close on overlay link click (with page transition delay)
+  overlayLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      // Let the page transition handler in scripts.js handle navigation
+      closeMenu();
+    });
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) closeMenu();
+  });
+})();

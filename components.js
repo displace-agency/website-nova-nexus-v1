@@ -106,7 +106,22 @@ class NovaNavbar extends HTMLElement {
         </a>
         <div class="navbar__links">
           <a href="./" class="navbar__link">Home</a>
+          <a href="solutions.html" class="navbar__link">Soluciones</a>
+          <a href="about.html" class="navbar__link">Nosotros</a>
           <a href="contact.html" class="navbar__link">Contact</a>
+        </div>
+        <button class="navbar__burger" aria-label="Menu" aria-expanded="false">
+          <span class="navbar__burger-bar"></span>
+          <span class="navbar__burger-bar"></span>
+        </button>
+      </div>
+      <div class="navbar__overlay" aria-hidden="true">
+        <div class="navbar__overlay-orb"></div>
+        <div class="navbar__overlay-links">
+          <a href="./" class="navbar__overlay-link">Home</a>
+          <a href="solutions.html" class="navbar__overlay-link">Soluciones</a>
+          <a href="about.html" class="navbar__overlay-link">Nosotros</a>
+          <a href="contact.html" class="navbar__overlay-link">Contact</a>
         </div>
       </div>
     `;
@@ -138,8 +153,10 @@ class NovaFooter extends HTMLElement {
           <div class="footer__nav-col">
             <span class="footer__nav-label">/NAVIGATION</span>
             <div class="footer__nav-links">
-              <a href="./">Home</a>
-              <a href="contact.html">Contact</a>
+              <a href="./">Inicio</a>
+              <a href="solutions.html">Soluciones</a>
+              <a href="about.html">Nosotros</a>
+              <a href="contact.html">Contacto</a>
             </div>
           </div>
           <div class="footer__nav-col">
@@ -147,6 +164,7 @@ class NovaFooter extends HTMLElement {
             <div class="footer__nav-links">
               <a href="terms.html">Términos de Servicio</a>
               <a href="privacy.html">Política de Privacidad</a>
+              <a href="archive.html">Archive</a>
             </div>
           </div>
           <div class="footer__nav-col">
