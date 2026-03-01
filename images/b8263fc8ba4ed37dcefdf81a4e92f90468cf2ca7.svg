@@ -1,0 +1,30 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 262.879 270.728" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Card Image">
+<g id="Ellipse 20" filter="url(#filter0_f_2355_1325)">
+<ellipse cx="116.487" cy="129.065" rx="40.5" ry="37.5" fill="var(--fill-0, #2B40F5)"/>
+</g>
+<g id="Ellipse 23" opacity="0.4" filter="url(#filter1_f_2355_1325)">
+<ellipse cx="115.987" cy="149.065" rx="23" ry="10.5" fill="var(--fill-0, #F2F1F1)"/>
+</g>
+<g id="Ellipse 26" filter="url(#filter2_f_2355_1325)">
+<ellipse cx="131.439" cy="135.364" rx="38.5" ry="27.5" transform="rotate(-55.5616 131.439 135.364)" fill="var(--fill-0, #F2F1F1)"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_2355_1325" x="46.6484" y="62.2264" width="139.677" height="133.677" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="14.6691" result="effect1_foregroundBlur_2355_1325"/>
+</filter>
+<filter id="filter1_f_2355_1325" x="74.8125" y="120.391" width="82.3483" height="57.3483" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="9.08708" result="effect1_foregroundBlur_2355_1325"/>
+</filter>
+<filter id="filter2_f_2355_1325" x="1.90735e-06" y="-3.8147e-06" width="262.879" height="270.728" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="0" result="effect1_foregroundBlur_2355_1325"/>
+</filter>
+</defs>
+</svg>

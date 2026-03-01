@@ -62,7 +62,7 @@ GSAP 3.12.5 + ScrollTrigger. Existence-guarded so all pages share one script.
 PDF resources for the Solutions page are hosted on Cloudflare R2:
 
 ```
-https://pub-4bf88f98ba4d45e5acd8c1b618eb037e.r2.dev/nova-nexus/resources/
+https://cdn.displace.agency/nova-nexus/resources/
 ├── oscilar-presentacion-general.pdf
 ├── oscilar-guia-bancos-2025.pdf
 ├── oscilar-plataforma-ia.pdf
