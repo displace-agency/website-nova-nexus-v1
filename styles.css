@@ -20,6 +20,7 @@ body {
   color: var(--navy);
   background: linear-gradient(180deg, #2B40F5 0%, #E4E6F3 70.63%, #FFFFFF 97.88%), #FFFFFF;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* ── FOUC prevention for Web Components ── */
@@ -3311,17 +3312,14 @@ a { text-decoration: none; color: inherit; }
   .proposito__stat-value { font-size: 24px; }
   .proposito__stat-label { font-size: 11px; }
 
-  /* Método — dark bg + horizontal scroll */
+  /* Método — horizontal scroll carousel */
   .metodo {
     padding-left: 0;
     padding-right: 0;
-    background: linear-gradient(180deg, #0F112A 0%, #1a2266 50%, #2B40F5 100%);
   }
   .metodo__inner { flex-direction: column; gap: 32px; max-width: 100%; }
   .metodo__header { flex: none; padding: 0 20px; }
-  .metodo__heading { font-size: 36px; color: var(--white); }
-  .metodo .section-tag { border-top-color: rgba(255,255,255,0.2); }
-  .metodo .section-tag--blue span { color: rgba(255,255,255,0.6); }
+  .metodo__heading { font-size: 36px; }
   .metodo__steps {
     flex-wrap: nowrap;
     overflow-x: auto;
@@ -3332,12 +3330,7 @@ a { text-decoration: none; color: inherit; }
   .metodo__steps::-webkit-scrollbar { display: none; }
   .metodo__step {
     flex: 0 0 240px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
   }
-  .metodo__step-number { color: rgba(255,255,255,0.5); }
-  .metodo__step-title { color: var(--white); }
-  .metodo__step-desc { color: rgba(255,255,255,0.6); }
 
   /* Logros */
   .logros__grid { grid-template-columns: 1fr; }
