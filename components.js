@@ -176,7 +176,7 @@ class NovaFooter extends HTMLElement {
           </div>
         </nav>
         <div class="footer__bottom">
-          <span class="footer__copyright">@2026 NOVA NEXUS CAPITAL. All Rights Reserved. • <a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a></span>
+          <span class="footer__copyright"><a href="archive.html" rel="nofollow" style="color:inherit;text-decoration:none;">@2026 NOVA NEXUS CAPITAL. All Rights Reserved.</a> • <a href="privacy.html">Privacy Policy</a> • <a href="terms.html">Terms of Service</a></span>
         </div>
       </div>
     `;
