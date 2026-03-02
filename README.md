@@ -7,6 +7,7 @@ Static marketing website for Nova Nexus Capital — a technology consulting comp
 - **`index.html`** — Homepage: hero, approach/Oscilar case study, pain points, operate accordion, community events, CTA
 - **`solutions.html`** — Solutions: hero, paneles estratégicos, capacidades, casos de éxito, recursos descargables (PDFs on Cloudflare R2), CTA
 - **`about.html`** — About: hero, vision, valores, método, logros, CTA
+- **`archive.html`** — Hidden page (noindex): founders section, archived process/comparison/FAQ. Linked from footer copyright
 - **`contact.html`** — Contact: hero, form, CTA
 - **`terms.html`** / **`privacy.html`** — Legal pages
 
@@ -92,6 +93,7 @@ website-nova-nexus-v1/
 ├── index.html          Homepage
 ├── solutions.html      Solutions page
 ├── about.html          About page
+├── archive.html        Hidden page (noindex, disallowed in robots.txt)
 ├── contact.html        Contact page
 ├── terms.html          Terms of service
 ├── privacy.html        Privacy policy
